@@ -1,0 +1,6 @@
+Doctor ID	Doctor Name	Doctor Phone	Doctor Specialty
+4637	Dr. Aqil Amran	0134568156	Neurology
+4793	Dr. Amirul Najib	01178968156	Ears, Nose & Throat
+4754	Dr. Rayhan Hj. Amran	01159568156	Cardiology
+6673	Dr. Chan Meng Hui	01349568156	Phsychology
+6992	Dr. Nurfatin Saharudin	01139568156	Radiology
