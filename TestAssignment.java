@@ -1,114 +1,154 @@
 package Assignment_Final;
 
-import java.io.*;
 import java.util.*;
+import java.io.*;
 import java.nio.file.*;
 
 public class TestAssignment {
-    public static void main(String[] args){
+
+
+	
+//	public static double getRandomUserID(double min, double max) {
+//		
+//		double randomUserID = Math.random();
+//		int userID = (int) randomUserID;
+//		userID = Integer.parseInt(Str);
+//		return userID;
+//	}
+	
+//	public static String generateRandomID(ArrayList<Random> randoms) {
+//	
+//		
+//		   Random rand = new Random();
+//		   
+//		   	int max = 99999;
+//		   	int min = 10000;
+//		   	
+//		   	int int_random = rand.nextInt((max - min) + 1) + min;
+//		     
+//		    String random = Integer.toString(int_random);
+//		      
+//		      return random;
+//		      
+//
+//		      
+//	}
+	
+	public String genPatientID(ArrayList<Patient> patient) {
+	   
+		
+	    int min = 10000;
+	    int max = 99999;
+	    
+	    String newPatientID = (Integer.toString((int)Math.floor(Math.random()*(max-min+1)+min)));
+	    
+	    boolean checkID = false;
+	    
+	    while(checkID == false) {
+	    	
+	    	 for (int i = 0; i < patient.size(); i++) {
+	    		  
+	    		    if (newPatientID.equals(patient.get(i).getUserID())) {
+	    		    	
+	    		    	
+	    		    	
+	    		    }
+	    		    	
+	    		   }
+	    		  
+	    	
+	    }
+ }
+	
+
+	
+	public static void main(String[] args){
     	Scanner scanner = new Scanner(System.in);
         
-    	System.out.println("\n\n						WELCOME TO APPOINTMENT BOOKING SYSTEM");
-    	System.out.println("\n\n");
+    	System.out.println("\n\n**********************************************************************************************************************************************************************************************************");
+    	System.out.println("\n						              WELCOME TO APPOINTMENT BOOKING SYSTEM, GET YOUR CONSULTATION BOOKED NOW!\n");
+    	System.out.println("**********************************************************************************************************************************************************************************************************");
+    	System.out.println("\n");
     	
-    	System.out.print("1 - New, 2 - Existing");
-    	System.out.print("\n\nAre you a new or an existing user?\t\t");
+    	System.out.print("Press 1 to Register (New User)");
+    	System.out.print("\nPress 2 to Login (Existing User)");
+    	System.out.print("\n\nAre you a new or an existing user?\t");
     	int determine = scanner.nextInt();
+    	
 	
-    	
-    	
     	String patientFileName = "patientDatabase.txt";
     	Path patientFilePath = Paths.get(patientFileName);
     	
     	String lines = "";
     	ArrayList<Patient> patients = new ArrayList();
-    	boolean headerState = false;
     	
     	String userID, name, password, email, phone, DOB;
     		
-    	
     	try {
     		
     		BufferedReader patientBr = Files.newBufferedReader(patientFilePath);
     		patientBr.readLine();
     		
-    		if((lines = patientBr.readLine()) == null) {
-    			headerState = true;
-    		
-    		}
-    		
     		while((lines = patientBr.readLine()) != null) {
     			String[] patientData = lines.split("\t");
     			patients.add(new Patient(patientData[0],patientData[1],patientData[2],patientData[3],patientData[4],patientData[5]));
-    			
     		}
     		
     		patientBr.close();
     		
-    	
-    		
-    		if(patients.isEmpty() == false ) {
-    			
-    			try { 
-    				
-    				patientBr = Files.newBufferedReader(patientFilePath);
-    				List<String> ArrayLines = Files.readAllLines(patientFilePath);
-    				
-    				BufferedWriter patientBw = Files.newBufferedWriter(patientFilePath);
-    	    		
-    	    		if(determine == 1) {
-    	  			
-    	    			System.out.print("\n\nEnter Name: ");
-    	    			name = scanner.next();
-    	    			patientBw.write(name + "\t");
-    	    			
-    	    			System.out.print("\n\nEnter Password: ");
-    	    			password = scanner.next();
-    	    			patientBw.write(password + "\t");
-    	    			
-    	    			System.out.print("\n\nEnter Email: ");
-    	    			email = scanner.next();
-    	    			patientBw.write(email + "\t");
-    	    			
-    	    			System.out.print("\n\nEnter Phone number: ");
-    	    			phone = scanner.next();
-    	    			patientBw.write(phone + "\t");
-    	    			
-    	    			System.out.print("\n\nEnter Date of Birth (DD/MM/YYYY):	");
-    	    			DOB = scanner.next();
-    	    			patientBw.write(DOB + "\n");
-    	    			
-    	    			patients.add(new Patient("ID", name, password, email, phone, DOB));
-    	    
-    	    		}
-    	    		
-    	    		else if(determine == 2) {
-    	    			
-    	    			System.out.print("\n\nEnter User ID: ");
-    	    			userID = scanner.next();
-    	    			
-    	    			System.out.print("\n\nEnter Password: ");
-    	    			password = scanner.next();
-    	    		
-    	    			
-    	    		}
+			FileWriter patientFw = new FileWriter(patientFileName,true);        
+            BufferedWriter patientBw = new BufferedWriter(patientFw);
+			
+			if(determine == 1) {
+				
+				patientBw.write("\n");
+				
+				patientBw.write("ID\t");
+			  
+				System.out.print("\n\nEnter Name: ");
+				name = scanner.next();
+				patientBw.write(name + "\t");
+				
+				scanner.nextLine();
 
-    			}
+				System.out.print("\n\nEnter Password: ");
+				password = scanner.next();
+				patientBw.write(password + "\t");
+				
+				scanner.nextLine();
 
-    			catch (FileNotFoundException e) {
-    	            e.printStackTrace();
-    	            
-    	        } 
-    			
-    			catch (IOException e) {
-    				
-    	            e.printStackTrace();
-    	        }
-    			
-    			
-    			
-    		}
-  
+				System.out.print("\n\nEnter Email: ");
+				email = scanner.next();
+				patientBw.write(email + "\t");
+				
+				scanner.nextLine();
+
+				System.out.print("\n\nEnter Phone number: ");
+				phone = scanner.next();
+				patientBw.write(phone + "\t");
+				
+				scanner.nextLine();
+
+				System.out.print("\n\nEnter Date of Birth (DD/MM/YYYY):	");
+				DOB = scanner.next();
+				patientBw.write(DOB);
+				
+				scanner.nextLine();
+
+				patients.add(new Patient("ID", name, password, email, phone, DOB));
+				
+				patientBw.flush();
+				patientBw.close();
+
+			} else if(determine == 2) {
+				
+				System.out.print("\n\nEnter User ID: ");
+				userID = scanner.next();
+				
+				System.out.print("\n\nEnter Password: ");
+				password = scanner.next();
+				
+			}
     	
     	}
     	
@@ -121,6 +161,8 @@ public class TestAssignment {
 	    }
     	
     	
+
+
     	System.out.println("\n\n\n");
     	
         // Search for hospital file path
@@ -144,7 +186,7 @@ public class TestAssignment {
             // Read the rest of the line and insert in Hospital Data
             while((lines = hospitalBr.readLine()) != null) {
                 String[] hospitalData = lines.split("\t");
-
+				hospitals.add(new Hospital(hospitalData[0],hospitalData[1],hospitalData[2],hospitalData[3],hospitalData[4]));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -157,7 +199,7 @@ public class TestAssignment {
 			System.out.println(hospitals.get(i).toString());
 		}
         
-        System.out.println("\nEnter Hospital ID: ");
+        System.out.print("\nEnter Hospital ID: ");
         String hospitalInput = scanner.nextLine();
         
         Boolean foundState = false;
@@ -206,6 +248,8 @@ public class TestAssignment {
         System.out.println("\nEnter doctor ID: ");
         String doctorInput = scanner.nextLine();
 
+        System.out.print("\n");
+        
         //Schedule Array
         ArrayList<Schedule> schedules = new ArrayList();       
 
@@ -253,7 +297,7 @@ public class TestAssignment {
         	
         }
         
-        System.out.println("Enter your booking Schedule ID from timeslots availabe: ");
+        System.out.println("\n\nEnter your booking Schedule ID from timeslots availabe: ");
         String scheduleInput = scanner.nextLine();
         
         foundState = false;
@@ -267,7 +311,6 @@ public class TestAssignment {
         
         if(foundState != true){
             System.out.println("ID does not found");
-        }
-        
+		}
+
     }
-}
