@@ -1,0 +1,11 @@
+Hospital ID	Hospital Name	Hospital Address	Hospital Working Hours	Hospital Rates
+8051474340	Hospital Pakar Sultanah Fatimah	"Bandar Maharani,Muar,Johor,Malaysia"	8.00AM - 5.00PM	3.4
+2291782800	Hospital Sultanah Nora Ismail	"Bandar Maharani,Muar,Johor,Malaysia"	8.00AM - 5.00PM	4.5
+4953512316	Hospital Enche Besar Hajjah Kalsom	"Bandar Maharani,Muar,Johor,Malaysia"	8.00AM - 5.00PM	3.4
+2400722002	Hospital Segamat	"Bandar Maharani,Muar,Johor,Malaysia"	8.00AM - 5.00PM	2.3
+6703914159	Hospital Pontian	"Bandar Maharani,Muar,Johor,Malaysia"	8.00AM - 5.00PM	3.4
+8595471434	Hospital Kota Tinggi	"Bandar Maharani,Muar,Johor,Malaysia"	8.00AM - 5.00PM	1.5
+9631747561	Hospital Mersing	"Bandar Maharani,Muar,Johor,Malaysia"	8.00AM - 5.00PM	3.4
+3402415949	Hospital Tangkak	"Bandar Maharani,Muar,Johor,Malaysia"	8.00AM - 5.00PM	1.4
+7033745928	Hospital Temenggung Seri Maharaja Tun Ibrahim	"Bandar Maharani,Muar,Johor,Malaysia"	8.00AM - 5.00PM	3.4
+4876342549	Hospital Permai Johor Bahru	"Bandar Maharani,Muar,Johor,Malaysia"	8.00AM - 5.00PM	3.3
