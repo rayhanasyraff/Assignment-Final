@@ -1,5 +1,3 @@
-package Assignment_Final;
-
 public class Booking {
 
 	private int bookingID;

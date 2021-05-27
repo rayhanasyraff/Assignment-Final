@@ -1,8 +1,12 @@
-package Assignment_Final;
-
-class Hospital {
+public class Hospital {
 
 	private String hospitalID, hospitalName, hospitalAddress, hospitalWorkingHours, hospitalRate;
+	
+	public Hospital(String hospitalID, String hospitalName) {
+		this.hospitalID = hospitalID;
+		this.hospitalName = hospitalName;
+		
+	}
 	
 	public Hospital(String hospitalID, String hospitalName, String hospitalAddress, String hospitalWorkingHours, String hospitalRate) {
 		this.hospitalID = hospitalID;
@@ -33,10 +37,11 @@ class Hospital {
 	}
 
 	public String toString() {
-		return "HospitalID: " + hospitalID + 
-				" Hospital Name: " + hospitalName +
-				" Hospital Working Hours: " + hospitalWorkingHours +
-				" Hospital Address: " + hospitalAddress +
-				" Hospital Rate: " + hospitalRate;
+		
+		return 	"\n" + "ID: " + hospitalID + 
+				"\nName: " + hospitalName +
+				"\nWorking Hours: " + hospitalWorkingHours +
+				"\nAddress: " + hospitalAddress +
+				"\nRating: " + hospitalRate;
 	}
 }

@@ -1,5 +1,3 @@
-package Assignment_Final;
-
 class Consultation {
 	private String findings;
 	private double consultationFee;

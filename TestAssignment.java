@@ -1,273 +1,338 @@
-package Assignment_Final;
-
-import java.io.*;
 import java.util.*;
+import java.io.*;
 import java.nio.file.*;
 
 public class TestAssignment {
-    public static void main(String[] args){
-    	Scanner scanner = new Scanner(System.in);
-        
-    	System.out.println("\n\n						WELCOME TO APPOINTMENT BOOKING SYSTEM");
-    	System.out.println("\n\n");
-    	
-    	System.out.print("1 - New, 2 - Existing");
-    	System.out.print("\n\nAre you a new or an existing user?\t\t");
-    	int determine = scanner.nextInt();
+
 	
-    	
-    	
-    	String patientFileName = "patientDatabase.txt";
-    	Path patientFilePath = Paths.get(patientFileName);
-    	
-    	String lines = "";
-    	ArrayList<Patient> patients = new ArrayList();
-    	boolean headerState = false;
-    	
-    	String userID, name, password, email, phone, DOB;
-    		
-    	
-    	try {
-    		
-    		BufferedReader patientBr = Files.newBufferedReader(patientFilePath);
-    		patientBr.readLine();
-    		
-    		if((lines = patientBr.readLine()) == null) {
-    			headerState = true;
-    		
-    		}
-    		
-    		while((lines = patientBr.readLine()) != null) {
-    			String[] patientData = lines.split("\t");
-    			patients.add(new Patient(patientData[0],patientData[1],patientData[2],patientData[3],patientData[4],patientData[5]));
-    			
-    		}
-    		
-    		patientBr.close();
-    		
-    	
-    		
-    		if(patients.isEmpty() == false ) {
-    			
-    			try { 
-    				
-    				patientBr = Files.newBufferedReader(patientFilePath);
-    				List<String> ArrayLines = Files.readAllLines(patientFilePath);
-    				
-    				BufferedWriter patientBw = Files.newBufferedWriter(patientFilePath);
-    	    		
-    	    		if(determine == 1) {
-    	  			
-    	    			System.out.print("\n\nEnter Name: ");
-    	    			name = scanner.next();
-    	    			patientBw.write(name + "\t");
-    	    			
-    	    			System.out.print("\n\nEnter Password: ");
-    	    			password = scanner.next();
-    	    			patientBw.write(password + "\t");
-    	    			
-    	    			System.out.print("\n\nEnter Email: ");
-    	    			email = scanner.next();
-    	    			patientBw.write(email + "\t");
-    	    			
-    	    			System.out.print("\n\nEnter Phone number: ");
-    	    			phone = scanner.next();
-    	    			patientBw.write(phone + "\t");
-    	    			
-    	    			System.out.print("\n\nEnter Date of Birth (DD/MM/YYYY):	");
-    	    			DOB = scanner.next();
-    	    			patientBw.write(DOB + "\n");
-    	    			
-    	    			patients.add(new Patient("ID", name, password, email, phone, DOB));
-    	    
-    	    		}
-    	    		
-    	    		else if(determine == 2) {
-    	    			
-    	    			System.out.print("\n\nEnter User ID: ");
-    	    			userID = scanner.next();
-    	    			
-    	    			System.out.print("\n\nEnter Password: ");
-    	    			password = scanner.next();
-    	    		
-    	    			
-    	    		}
-
-    			}
-
-    			catch (FileNotFoundException e) {
-    	            e.printStackTrace();
-    	            
-    	        } 
-    			
-    			catch (IOException e) {
-    				
-    	            e.printStackTrace();
-    	        }
-    			
-    			
-    			
-    		}
-  
-    	
-    	}
-    	
-    	catch (FileNotFoundException e) {
-	        e.printStackTrace();
-	    } 
-    	
-    	catch (IOException e) {
-	        e.printStackTrace();
-	    }
-    	
-    	
-    	System.out.println("\n\n\n");
-    	
-        // Search for hospital file path
-        String hospitalFileName = "hospitalDatabase.txt"; 
-        Path hospitalFilePath = Paths.get(hospitalFileName);
-        lines = "";
-
-        // System.out.println(hospitalFilePath);
-
-        // Hospital Array
-        ArrayList<Hospital> hospitals = new ArrayList();
-        
-        try {
-
-            // Tell the program to read the chosen file path
-            BufferedReader hospitalBr = Files.newBufferedReader(hospitalFilePath);
-            
-            // Read the first line only
-            hospitalBr.readLine();
-            
-            // Read the rest of the line and insert in Hospital Data
-            while((lines = hospitalBr.readLine()) != null) {
-                String[] hospitalData = lines.split("\t");
-
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    
-
-        for(int i = 0 ; i < hospitals.size(); i++) {
-			System.out.println(hospitals.get(i).toString());
+	public static String genPatientID(ArrayList<Patient> patient) {
+	   
+		ArrayList<String> randomID = new ArrayList();
+		
+		for(int i=0; i < patient.size(); i++) {
+			
+			randomID.add(patient.get(i).getUserID());
+			
 		}
-        
-        System.out.println("\nEnter Hospital ID: ");
-        String hospitalInput = scanner.nextLine();
-        
-        Boolean foundState = false;
+		
+	    int min = 10000;
+	    int max = 99999;
+	    
+	    String newPatientID = (Integer.toString((int)Math.floor(Math.random()*(max-min+1)+min)));
+	    
+	    while(randomID.contains(newPatientID)) {
+	    	
+	    	newPatientID = (Integer.toString((int)Math.floor(Math.random()*(max-min+1)+min)));
+	    	
+	    }
+	    
+	    	randomID.add(newPatientID);
+	    	
+	    	return newPatientID;
+	    
+ 	}
+	
 
-        // Hospital Array
-        ArrayList<Doctor> doctors = new ArrayList();       
+	
+	public static void main(String[] args){
+		Scanner scanner = new Scanner(System.in);
 
-        for(int i = 0; i < hospitals.size(); i++) {
-        	if (hospitalInput.equals(hospitals.get(i).getHospitalID())) {
-                foundState = true;
-        		String doctorFileName = "doctorDatabase/" + hospitalInput + ".txt"; 
-        	    Path doctorFilePath = Paths.get(doctorFileName);
-        	    lines = "";
-        	        
-        	        try {
+		
+		System.out.println("\n\n**********************************************************************************************************************************************************************************************************");
+		System.out.println("\n						              WELCOME TO APPOINTMENT BOOKING SYSTEM, GET YOUR CONSULTATION BOOKED NOW!\n");
+		System.out.println("**********************************************************************************************************************************************************************************************************");
+		System.out.println("\n");
+		
+		System.out.print("Press 1 to Register (New User)");
+		System.out.print("\nPress 2 to Login (Existing User)");
+		System.out.print("\nAre you a new or an existing user?\t");
+		int determine;
+		determine = scanner.nextInt();
+		
+		
+		System.out.print("\n**********************************************************************************************************************************************************************************************************");
 
-        	            // Tell the program to read the chosen file path
-        	            BufferedReader doctorBr = Files.newBufferedReader(doctorFilePath);
-        	            
-        	            // Read the first line only
-        	            doctorBr.readLine();
-        	            
-        	            // Read the rest of the line and insert in Hospital Data
-        	            while((lines = doctorBr.readLine()) != null) {
-        	                String[] doctorData = lines.split("\t");
-        	                doctors.add(new Doctor(doctorData[0],doctorData[1],doctorData[2],doctorData[3]));
-        	            }
-        	        } catch (FileNotFoundException e) {
-        	            e.printStackTrace();
-        	        } catch (IOException e) {
-        	            e.printStackTrace();
-        	        }
-                    
-                    break;
-        	}
-        }
+		String patientFileName = "patientDatabase.txt";
+		Path patientFilePath = Paths.get(patientFileName);
+		
+		String lines = "";
+		ArrayList<Patient> patients = new ArrayList();
+		
+		String userID, name, password, email, phone, DOB;
+			
+		try {
+			
+			BufferedReader patientBr = Files.newBufferedReader(patientFilePath);
+			patientBr.readLine();
+			
+			while((lines = patientBr.readLine()) != null) {
+				String[] patientData = lines.split("\t");
+				patients.add(new Patient(patientData[0],patientData[1],patientData[2],patientData[3],patientData[4],patientData[5]));
+			}
+			
+			patientBr.close();
+			
+			FileWriter patientFw = new FileWriter(patientFileName,true);        
+			BufferedWriter patientBw = new BufferedWriter(patientFw);
+			
+			if(determine == 1) {
+				
+				patientBw.write("\n");
+				
+				patientBw.write(genPatientID(patients) + "\t");
+				
+				System.out.print("\n\nUsername: ");
+				name = scanner.next();
+				patientBw.write(name + "\t");
+				
 
-        if(foundState != true){
-        	System.out.println("ID does not found");
-       }
+				System.out.print("\n\nPassword: ");
+				password = scanner.next();
+				patientBw.write(password + "\t");
+				
 
-        for(int p = 0 ; p < doctors.size(); p++) {
-            System.out.println(doctors.get(p).toString());
-        }
-        
-        System.out.println("\nEnter doctor ID: ");
-        String doctorInput = scanner.nextLine();
+				System.out.print("\n\nEmail: ");
+				email = scanner.next();
+				patientBw.write(email + "\t");
 
-        //Schedule Array
-        ArrayList<Schedule> schedules = new ArrayList();       
+				
+				System.out.print("\n\nPhone number: ");
+				phone = scanner.next();
+				patientBw.write(phone + "\t");
+				
+				
+				System.out.print("\n\nDate of Birth (DD/MM/YYYY):	");
+				DOB = scanner.next();
+				patientBw.write(DOB);
+				
+				scanner.nextLine();
+
+				patients.add(new Patient(genPatientID(patients), name, password, email, phone, DOB));
+				
+				patientBw.flush();
+				patientBw.close();
+				
+				System.out.println("\n\n**********************************************************************************************************************************************************************************************************");
+
+			} 
+			
+			else if(determine == 2) {
+				
+				boolean logInStatus = false;
+				
+				while(logInStatus != true) {
+					
+					System.out.print("\n\nEnter User ID: ");
+					userID = scanner.next();
+					
+					
+					System.out.print("\n\nEnter Password: ");
+					password = scanner.next();
+				
+				
+					for(int i = 0; i < patients.size(); i++) {
+						
+						if(userID.equals(patients.get(i).getUserID()) && password.equals(patients.get(i).getPass())) {
+											
+							logInStatus = true;
+				
+						}
+										
+					}
+					
+				}
+					
+				//scanner.nextLine();
+			}
+			System.out.println("\n\n**********************************************************************************************************************************************************************************************************");
+		}
+		
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} 
+		
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
 
 
-        foundState = false;
+		System.out.println("\n");
+		
+		// Search for hospital file path
+		String hospitalFileName = "hospitalDatabase.txt"; 
+		Path hospitalFilePath = Paths.get(hospitalFileName);
+		lines = "";
 
-        for(int i = 0; i < doctors.size(); i++) {
-        	if (doctorInput.equals(doctors.get(i).getDoctorID())) {
-                foundState = true;
-        		String scheduleFileName = "scheduleDatabase/" + doctorInput + ".txt"; 
-        	    Path scheduleFilePath = Paths.get(scheduleFileName);
-        	    lines = "";
-        	        
-        	        try {
+		// System.out.println(hospitalFilePath);
 
-        	            // Tell the program to read the chosen file path
-        	            BufferedReader scheduleBr = Files.newBufferedReader(scheduleFilePath);
-        	            
-        	            // Read the first line only
-        	            scheduleBr.readLine();
-        	            
-        	            // Read the rest of the line and insert in Hospital Data
-        	            while((lines = scheduleBr.readLine()) != null) {
-        	                String[] scheduleData = lines.split("\t");
-        	                schedules.add(new Schedule(scheduleData[0],scheduleData[1],scheduleData[2],scheduleData[3]));
-        	            }
-        	        } catch (FileNotFoundException e) {
-        	            e.printStackTrace();
-        	        } catch (IOException e) {
-        	            e.printStackTrace();
-        	        }
-                    break;
-        	}
-        }
-        
-        if(foundState != true){
-            System.out.println("ID does not found");
-        }
-        
-        for(int i = 0; i < schedules.size(); i++) {
-        	if (schedules.get(i).getStatus().equals("Available")) {
-        		System.out.println(schedules.get(i).displaySchedule());
-        		
-        	}
-        	
-        }
-        
-        System.out.println("Enter your booking Schedule ID from timeslots availabe: ");
-        String scheduleInput = scanner.nextLine();
-        
-        foundState = false;
-        
-        for(int i = 0; i < schedules.size(); i++) {
-        	if(scheduleInput.equals(schedules.get(i).getScheduleID())) {
-        		schedules.get(i).setStatus("Unavailable");
-        		foundState = true;
-        	}
-        }
-        
-        if(foundState != true){
-            System.out.println("ID does not found");
-        }
-        
-    }
+		// Hospital Array
+		ArrayList<Hospital> hospitals = new ArrayList();
+		
+		try {
+
+			// Tell the program to read the chosen file path
+			BufferedReader hospitalBr = Files.newBufferedReader(hospitalFilePath);
+			
+			// Read the first line only
+			hospitalBr.readLine();
+			
+			// Read the rest of the line and insert in Hospital Data
+			while((lines = hospitalBr.readLine()) != null) {
+				String[] hospitalData = lines.split("\t");
+				hospitals.add(new Hospital(hospitalData[0],hospitalData[1],hospitalData[2],hospitalData[3],hospitalData[4]));
+			}
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("LIST OF HOSPITAL DETAILS\n");
+		
+		System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
+		
+		System.out.printf("%3s\t %12s\t %22s\t \t\t%15s\t \t\t%36s", "ID", "Name", "Working Hours", "Address", "Rating");
+		
+		System.out.println();
+		
+		System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
+		
+		for(int i = 0; i < hospitals.size(); i++){
+			
+			System.out.format("%s\t %s\t %s\t %s\t \t%s",
+					hospitals.get(i).getHospitalID(), hospitals.get(i).getHospitalName(),hospitals.get(i).getHospitalWorkingHours(), hospitals.get(i).getHospitalAddress(),hospitals.get(i).getHospitalRate());
+			System.out.println();
+			
+		}
+		
+		System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
+		
+		System.out.println("\n\n**********************************************************************************************************************************************************************************************************\n\n");
+		
+		
+		System.out.println("LIST OF DOCTOR DETAILS");
+			
+		System.out.print("\nEnter Hospital ID: ");
+
+		String hospitalInput = scanner.nextLine();
+		
+		
+		
+		Boolean foundState = false;
+
+		// Hospital Array
+		ArrayList<Doctor> doctors = new ArrayList();       
+
+		for(int i = 0; i < hospitals.size(); i++) {
+			if (hospitalInput.equals(hospitals.get(i).getHospitalID())) {
+				foundState = true;
+				String doctorFileName = "doctorDatabase/" + hospitalInput + ".txt"; 
+				Path doctorFilePath = Paths.get(doctorFileName);
+				lines = "";
+					
+					try {
+
+						// Tell the program to read the chosen file path
+						BufferedReader doctorBr = Files.newBufferedReader(doctorFilePath);
+						
+						// Read the first line only
+						doctorBr.readLine();
+						
+						// Read the rest of the line and insert in Hospital Data
+						while((lines = doctorBr.readLine()) != null) {
+							String[] doctorData = lines.split("\t");
+							doctors.add(new Doctor(doctorData[0],doctorData[1],doctorData[2],doctorData[3]));
+						}
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+					break;
+			}
+		}
+
+		if(foundState != true){
+			System.out.println("ID does not found");
+		}
+
+		for(int p = 0 ; p < doctors.size(); p++) {
+			System.out.println(doctors.get(p).toString());
+		}
+		
+		System.out.println("\n\n**********************************************************************************************************************************************************************************************************");
+
+		System.out.println("\nEnter doctor ID: ");
+		String doctorInput = scanner.nextLine();
+
+		System.out.print("\n");
+		
+		//Schedule Array
+		ArrayList<DoctorSchedule> doctorSchedules = new ArrayList();       
+
+
+		foundState = false;
+
+		for(int i = 0; i < doctors.size(); i++) {
+			if (doctorInput.equals(doctors.get(i).getDoctorID())) {
+				foundState = true;
+				String doctorScheduleFileName = "scheduleDatabase/" + doctorInput + ".txt"; 
+				Path doctorScheduleFilePath = Paths.get(doctorScheduleFileName);
+				lines = "";
+					
+					try {
+
+						// Tell the program to read the chosen file path
+						BufferedReader doctorScheduleBr = Files.newBufferedReader(doctorScheduleFilePath);
+						
+						// Read the first line only
+						doctorScheduleBr.readLine();
+						
+						// Read the rest of the line and insert in Hospital Data
+						while((lines = doctorScheduleBr.readLine()) != null) {
+							String[] doctorScheduleData = lines.split("\t");
+							doctorSchedules.add(new DoctorSchedule(doctorScheduleData[0],doctorScheduleData[1],doctorScheduleData[2],doctorScheduleData[3]));
+						}
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					break;
+			}
+		}
+		
+		if(foundState != true){
+			System.out.println("ID does not found");
+		}
+		
+		for(int i = 0; i < doctorSchedules.size(); i++) {
+			if (doctorSchedules.get(i).getDoctorStatus().equals("Available")) {
+				System.out.println(doctorSchedules.get(i).displayDoctorSchedule());
+				
+			}
+			
+		}
+		
+		System.out.println("\n\nEnter your booking Schedule ID from timeslots availabe: ");
+		String doctorScheduleInput = scanner.nextLine();
+		
+		foundState = false;
+		
+		for(int i = 0; i < doctorSchedules.size(); i++) {
+			if(doctorScheduleInput.equals(doctorSchedules.get(i).getDoctorScheduleID())) {
+				doctorSchedules.get(i).setStatus("Unavailable");
+				foundState = true;
+			}
+		}
+		
+		if(foundState != true){
+			System.out.println("ID does not found");
+		}
+
+	}
 }

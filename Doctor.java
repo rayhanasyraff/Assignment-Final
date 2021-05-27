@@ -1,16 +1,21 @@
-package Assignment_Final;
-
 public class Doctor {
 	private String specialty;
 	private String doctorID;
 	private String doctorName;
 	private String phone;
 
+	
+
   public Doctor(String doctorID, String doctorName, String phone, String specialty) {
 	  this.doctorID = doctorID;
 	  this.doctorName = doctorName;
 	  this.phone = phone;
 	  this.specialty = specialty;
+  }
+  
+  public Doctor(String doctorID, String doctorName) {
+	  this.doctorID = doctorID;
+	  this.doctorName = doctorName;
   }
 
 

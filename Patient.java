@@ -1,5 +1,3 @@
-package Assignment_Final;
-
 public class Patient {
 	
 	private String userID;
@@ -10,7 +8,7 @@ public class Patient {
 	}
 	
 	
-	Patient(String userID, String name, String email, String DOB, String password, String phone) {
+	Patient(String userID, String name, String password, String email, String phone, String DOB) {
 		this.userID = userID;
 		this.name = name;
 		this.email = email;
